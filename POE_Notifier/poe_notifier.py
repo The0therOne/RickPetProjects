@@ -17,7 +17,7 @@ class PoeNotifier:
     temp_last_line = ''
     last_line = ''
     active = False
-    path_to_watch = "C:\\Program Files (x86)\\SSDGAMES\\steamapps\\common\\Path of Exile\\logs\\Client.txt"
+    path_to_watch = "\\Client.txt" # You need configure the path to Clients.txt (.../PathOfExile/logs/Clients.txt)
 
     def __init__(self, mode):  # mode = ['PM', 'TRADE']
         self.mode = mode
