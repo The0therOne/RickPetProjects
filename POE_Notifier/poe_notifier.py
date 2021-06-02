@@ -1,19 +1,23 @@
 # Path of Exile PM and TRADE notification.
-# You can be AFK and still receive message with PM text
-# to your messenger (Telegram bot or you can change my code for another messenger,
+# You can be AFK and still receive message with PM or TRADE text
+# to your messenger (Telegram with your bot or you can change my code for another messenger,
 # or smart watch for example)
+# by Ricrawl
 
 
 import time
 import subprocess
 import telegram_send
 
+# import re
+# (?!From)[[:alpha:]]*: FOR NICKNAME parsing
+
 
 class PoeNotifier:
     temp_last_line = ''
     last_line = ''
     active = False
-    path_to_watch = "\\Client.txt" # You need configure the path to Clients.txt (.../PathOfExile/logs/Clients.txt)
+    path_to_watch = "C:\\Program Files (x86)\\SSDGAMES\\steamapps\\common\\Path of Exile\\logs\\Client.txt"
 
     def __init__(self, mode):  # mode = ['PM', 'TRADE']
         self.mode = mode
