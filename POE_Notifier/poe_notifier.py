@@ -1,16 +1,12 @@
 # Path of Exile PM and TRADE notification.
-# You can be AFK and still receive message with PM or TRADE text
-# to your messenger (Telegram with your bot or you can change my code for another messenger,
+# You can be AFK and still receive message with PM text
+# to your messenger (Telegram bot or you can change my code for another messenger,
 # or smart watch for example)
-# by Ricrawl
 
 
 import time
 import subprocess
 import telegram_send
-
-# import re
-# (?!From)[[:alpha:]]*: FOR NICKNAME parsing
 
 
 class PoeNotifier:
