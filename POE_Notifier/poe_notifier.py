@@ -9,9 +9,6 @@ import time
 import subprocess
 import telegram_send
 
-# import re
-# (?!From)[[:alpha:]]*: FOR NICKNAME parsing
-
 
 class PoeNotifier:
     temp_last_line = ''
