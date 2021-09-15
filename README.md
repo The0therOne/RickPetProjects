@@ -15,3 +15,12 @@ Script for game Path of Exile. "cv2" for scan color on "mss" screen.
 
 ## POE_notifier
 Script for game Path Of Exile. Script parses log file with in-game info, to grab needed and send it to Telegram bot (or something that you want, you can change script)
+
+## SimpleChat
+Simple realisation of chat with threads, blacklist, and admin commands (kick and ban)
+
+## asyncio_learn_projects
+I wrote it, when i started to learn asyncio concept.
+
+## GenshinImpactMultitool
+I wrote it for my girlfriend. Script parses websites with promocodes(you can choose Active or Expired) for Genshin Impact, shows "how to redeem codes", shows builds with opening urls in browser, and opens interactive map. I will add more features later.
