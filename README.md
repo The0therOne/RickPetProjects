@@ -23,4 +23,4 @@ Simple realisation of chat with threads, blacklist, and admin commands (kick and
 I wrote it, when i started to learn asyncio concept.
 
 ## GenshinImpactMultitool
-I wrote it for my girlfriend. Script parses websites with promocodes(you can choose Active or Expired) for Genshin Impact, shows "how to redeem codes", shows builds with opening urls in browser, and opens interactive map. I will add more features later.
+Script parses websites with promocodes(you can choose Active or Expired) for Genshin Impact, shows "how to redeem codes", shows builds with opening urls in browser, and opens interactive map. I will add more features later.
