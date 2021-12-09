@@ -24,3 +24,6 @@ I wrote it, when i started to learn asyncio concept.
 
 ## GenshinImpactMultitool
 Script parses websites with promocodes(you can choose Active or Expired) for Genshin Impact, shows "how to redeem codes", shows builds with opening urls in browser, and opens interactive map.
+
+## GUI_POE_TradeNotifier
+Its updated version of classic console script POE_Notifier. UI created with QT Designer and PyQt module. It has got some non-critical bugs, but it still works. Fix it soon ;)
