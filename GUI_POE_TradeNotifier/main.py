@@ -1,7 +1,12 @@
+# POE Trade Notifier v1.0 (GUI)
+# by The0therOne
+# Python 3.10
+# You need to install telegram-send module to configure connect with bot
+# pip install telegram-send
+
 import sys
 import os
 from pathlib import Path
-from functools import cache, lru_cache
 
 import telegram_send
 from PyQt5 import (QtCore,
@@ -19,6 +24,9 @@ from poe_notifier import PoeNotifier
 
 
 class Notifier(QThread):
+    """
+    Thread class for Notifier
+    """
     thread_active = False
 
     def __init__(self, mode, path_to_watch):
@@ -38,6 +46,9 @@ class Notifier(QThread):
 
 
 class ConfigureBot(QThread):
+    """
+    Thread for Bot Configuring
+    """
     thread_active = False
 
     def __init__(self):
@@ -58,7 +69,7 @@ class MainApp(QtWidgets.QMainWindow):
     def __init__(self):
         super(MainApp, self).__init__()
 
-        # First thread (Notifier)
+        # Notifier Thread init
         self.notifier = Notifier(self.path_to_client, self.mode)
 
         self.ui = Ui_MainWindow()
@@ -67,6 +78,9 @@ class MainApp(QtWidgets.QMainWindow):
         self.init_ui()
 
     def init_ui(self):
+        """
+        Basic init of UI component with start of program
+        """
         self.setWindowTitle("PathOfExile Trade Notifier v0.1")
         self.setWindowIcon(QIcon('icon_without_bg.png'))
         self.ui.input_path.setPlaceholderText('*\\Steam\\steamapps\\common\\Path of Exile\\logs\\Client.txt')
@@ -78,16 +92,28 @@ class MainApp(QtWidgets.QMainWindow):
         self.ui.btn_test_message.clicked.connect(self.test_message)
 
     def configure_bot(self):
+        """
+        Connected to "Configure telegram module" button.
+        Start configuration thread to configure telegram-send module
+        """
+        # Configurator thread init
         self.configure_bot_thread = ConfigureBot()
         self.configure_bot_thread.start()
         self.ui.output_log.append('Started configuration...')
 
     def test_message(self):
+        """
+        Connected to "Test message to bot" button.
+        Send test message to connected bot
+        """
         telegram_send.send(messages=['ITS ALIVE!!!'])
         self.ui.output_log.append('Test message send...')
 
     @staticmethod
     def info_box_path():
+        """
+        Information box for "wrong path" message
+        """
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Question)
         msg.setStyleSheet("QMessageBox{min-width: 150px;}")
@@ -96,23 +122,20 @@ class MainApp(QtWidgets.QMainWindow):
         msg.setInformativeText("*\\Steam\\steamapps\\common\\Path of Exile\\logs\\Client.txt")
         msg.exec_()
 
-    @staticmethod
-    def info_box_conf_done():
-        msg = QMessageBox()
-        msg.setIcon(QMessageBox.Question)
-        msg.setStyleSheet("QMessageBox{min-width: 150px;}")
-        msg.setWindowTitle("Bot connected!")
-        msg.setText("You can try to send test message for your bot...")
-        # msg.setInformativeText("*\\Steam\\steamapps\\common\\Path of Exile\\logs\\Client.txt")
-        msg.exec_()
-
     def open_file_browser(self):
+        """
+        Connected to '...' button.
+        Open file browser
+        """
         dlg = QFileDialog()
         dlg.setFileMode(QFileDialog.ExistingFile)
         self.path_to_client = dlg.getOpenFileName(self, 'Open File', '', 'TXT file (*.txt)')[0]
         self.ui.input_path.setText(self.path_to_client)
 
     def start_notifier_module(self):
+        """
+        Start notifier thread and notifier module
+        """
         self.notifier = Notifier(self.mode, self.path_to_client)
         self.notifier.start()
         self.ui.btn_stop.setEnabled(True)
@@ -120,6 +143,9 @@ class MainApp(QtWidgets.QMainWindow):
         self.ui.output_log.append('Notifier was started...')
 
     def check_path_and_start_module(self):
+        """
+        Function to check path and then start module if path is valid
+        """
         client_file = Path(self.ui.input_path.text())
         if client_file.is_file() and client_file.name == 'Client.txt':
             self.path_to_client = self.ui.input_path.text()
@@ -128,6 +154,10 @@ class MainApp(QtWidgets.QMainWindow):
             self.info_box_path()
 
     def start_notifier(self):
+        """
+        Connected to START button.
+        Check radio btn to set mode and then start "check_path" function
+        """
         if self.ui.rBtn_pm.isChecked():  # Checking radio buttons to set mode for PoeNotifier class
             self.mode = self.ui.rBtn_pm.text().lower()
         elif self.ui.rBtn_trade.isChecked():  # Checking radio buttons to set mode for PoeNotifier class
@@ -136,6 +166,10 @@ class MainApp(QtWidgets.QMainWindow):
         self.check_path_and_start_module()
 
     def stop_notifier(self):
+        """
+        Connected to STOP button.
+        If threads active, deactivate them to stop notifier
+        """
         if self.notifier.thread_active:
             self.ui.btn_stop.setEnabled(False)
             self.ui.btn_start.setEnabled(True)

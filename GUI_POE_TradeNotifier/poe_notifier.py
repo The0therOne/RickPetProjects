@@ -1,6 +1,11 @@
-import time
+# Module for Path of Exile to monitor "Client.txt" file.
+# For PM or TRADE notifications, while you afk
+# You need install telegram-send module to connect this module with telegram bot
+# pip install telegram-send
+# by The0therOne
+
+from time import sleep
 import telegram_send
-from subprocess import run, PIPE
 
 
 class PoeNotifier:
@@ -16,9 +21,8 @@ class PoeNotifier:
     def start(self):
         """
         Method for init first start of script and printing last line in Client.txt
-        :return:
         """
-        time.sleep(1)
+        sleep(1)
         print(f"[+]{self.mode} mode started...")
         self.active = True
         last_line = self.get_last_line()
@@ -32,12 +36,9 @@ class PoeNotifier:
     def wait_messages(self, last_line, temp_last_line):
         """
         Method for waiting messages from game to check them and send message to telegram
-        :param last_line:
-        :param temp_last_line:
-        :return:
         """
         while self.active:
-            time.sleep(1)
+            sleep(1)
             if self.mode == 'pm':
                 if last_line != temp_last_line:
                     if '@From' in last_line:
@@ -60,7 +61,6 @@ class PoeNotifier:
     def get_last_line(self):
         """
         Function for getting last line in Client.txt file
-        :return:
         """
         while self.active:
             with open(self.path_to_watch, mode='r', encoding='utf-8') as client_f:
@@ -76,8 +76,6 @@ class PoeNotifier:
     def send_notify_to_telegram(self, last_line):
         """
         Sending last line from Client.txt to telegram bot
-        :param last_line:
-        :return:
         """
         if self.mode == 'pm':
             telegram_send.send(messages=[last_line.split('@')[1]])
@@ -87,7 +85,6 @@ class PoeNotifier:
     def stop(self):
         """
         Stop monitoring Client.txt
-        :return:
         """
         print('Notifier has stopped!')
         self.active = False
